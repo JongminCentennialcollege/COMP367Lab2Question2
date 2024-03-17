@@ -34,8 +34,9 @@ pipeline {
             steps {
                 script {
                   
-                    withCredentials([usernamePassword(credentialsId: DOCKER_HUB_CREDENTIALS, usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASSWORD')]) {
-                        sh 'echo $DOCKER_PASSWORD | docker login -u $DOCKER_USER --password-stdin'
+                   withCredentials([usernamePassword(credentialsId: DOCKER_HUB_CREDENTIALS, usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASSWORD')]) {
+                sh 'echo $DOCKER_PASSWORD | /usr/local/bin/docker login -u $DOCKER_USER --password-stdin'
+                sh '/usr/local/bin/docker push myapp:latest'
                     }
                   
                     sh 'docker push myapp:latest'
